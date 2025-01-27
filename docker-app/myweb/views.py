@@ -1,4 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Hello from myweb!")
+    if request.user.is_authenticated:
+        username = request.user.username
+    else:
+        username = "Guest"
+    
+    context = {'username': username}
+    return render(request, 'myweb/index.html', context)

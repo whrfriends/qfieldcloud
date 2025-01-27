@@ -5,6 +5,7 @@ __pycache__/
 .coverage
 .vscode
 .env
+.venv
 docker-compose.override.yml
 client/projects
 conf/mkcert/*
