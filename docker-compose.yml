@@ -23,6 +23,7 @@ services:
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles/
+      - ./docker-app:/usr/src/app
     environment:
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}

@@ -37,6 +37,7 @@ admin.site.index_title = _("Welcome to QFieldCloud Admin")
 
 
 urlpatterns = [
+    path('myweb/', include('myweb.urls')),
     path(
         "",
         RedirectView.as_view(url=settings.QFIELDCLOUD_ADMIN_URI, permanent=False),

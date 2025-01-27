@@ -26,7 +26,7 @@ For questions about using the hosted service at [app.qfield.cloud](https://app.q
 
 For self-hosted issues, please use the GitHub issues at https://github.com/opengisch/qfieldcloud/issues .
 
-
+<!-- docker compose run app python manage.py createsuperuser --username super --email whrfriends@163.com -->
 ## Development
 
 
