@@ -12,7 +12,7 @@ attrs==24.2.0
     # via
     #   jsonschema
     #   referencing
-beautifulsoup4==4.12.3
+beautifulsoup4
     # via django-bootstrap4
 boto3==1.35.90
     # via -r /requirements/requirements.in
@@ -22,13 +22,13 @@ botocore==1.35.90
     # via
     #   boto3
     #   s3transfer
-botocore-stubs==1.35.10
+botocore-stubs
     # via boto3-stubs
 certifi==2024.8.30
     # via
     #   requests
     #   sentry-sdk
-cffi==1.17.0
+cffi
     # via cryptography
 charset-normalizer==3.3.2
     # via requests
@@ -71,7 +71,7 @@ django==4.2.17
     #   djangorestframework
     #   drf-spectacular
     #   jsonfield
-django-allauth==0.44.0
+django-allauth
     # via -r /requirements/requirements.in
 django-appconf==1.0.6
     # via django-cryptography

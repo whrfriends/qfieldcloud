@@ -11,6 +11,8 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 # Do not create and use redundant cache dir in the current user home
 ARG PIP_NO_CACHE_DIR=1
 
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+
 # install psycopg2 requirements
 RUN apt-get update && apt-get install -y libpq-dev python3-dev gcc
 
@@ -19,7 +21,7 @@ RUN pip install pip-tools
 
 # install pip dependencies
 COPY ./requirements/requirements.txt /requirements/requirements.txt
-RUN pip3 install -r requirements/requirements.txt
+RUN pip install -r requirements/requirements.txt
 
 # save 60 MB of data... Safe to delete according to botocore contributor https://github.com/boto/botocore/issues/1629#issuecomment-451309885
 RUN ls -Q /usr/local/lib/python3.10/site-packages/botocore/data | grep -xv "endpoints.json" | xargs rm -rf
@@ -83,7 +85,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 FROM base AS webserver_runtime
 ENV LOGGER_SOURCE=app
 COPY ./requirements/requirements_runtime.txt requirements/requirements_runtime.txt
-RUN pip3 install -r requirements/requirements_runtime.txt
+RUN pip install -r requirements/requirements_runtime.txt
 EXPOSE 8000
 
 COPY . .
@@ -98,7 +100,7 @@ USER app
 FROM base AS webserver_test
 ENV LOGGER_SOURCE=app
 COPY ./requirements/requirements_test.txt requirements/requirements_test.txt
-RUN pip3 install -r requirements/requirements_test.txt
+RUN pip install -r requirements/requirements_test.txt
 EXPOSE 8000
 
 COPY . .
@@ -113,7 +115,7 @@ USER app
 FROM base AS worker_wrapper_runtime
 ENV LOGGER_SOURCE=worker_wrapper
 COPY ./requirements/requirements_worker_wrapper.txt requirements/requirements_worker_wrapper.txt
-RUN pip3 install -r requirements/requirements_worker_wrapper.txt
+RUN pip install -r requirements/requirements_worker_wrapper.txt
 
 COPY . .
 RUN chown -R app:app .
