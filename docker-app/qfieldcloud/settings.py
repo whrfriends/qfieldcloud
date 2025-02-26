@@ -129,7 +129,8 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "qfieldcloud.core.middleware.requests.attach_keys",  # QF-2540: Inspecting request after Django middlewares
+    # QF-2540: Inspecting request after Django middlewares
+    "qfieldcloud.core.middleware.requests.attach_keys",
     "log_request_id.middleware.RequestIDMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -523,8 +524,8 @@ CONSTANCE_CONFIG_FIELDSETS = {
 }
 
 # Name of the qgis docker image used as a worker by worker_wrapper
-QFIELDCLOUD_QGIS_IMAGE_NAME = os.environ["QFIELDCLOUD_QGIS_IMAGE_NAME"]
-
+# QFIELDCLOUD_QGIS_IMAGE_NAME = os.environ["QFIELDCLOUD_QGIS_IMAGE_NAME"]
+QFIELDCLOUD_QGIS_IMAGE_NAME = "qfieldcloud-qgis"
 # URL the qgis worker will use to access the running API endpoint on the app service
 QFIELDCLOUD_WORKER_QFIELDCLOUD_URL = os.environ["QFIELDCLOUD_WORKER_QFIELDCLOUD_URL"]
 

@@ -1,4 +1,7 @@
 # dosomething
+pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ 
+pip config set global.extra-index-url https://pypi.org/simple/
+
 # QFieldCloud
 
 
