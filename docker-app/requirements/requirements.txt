@@ -14,7 +14,7 @@ attrs==24.2.0
     #   referencing
 beautifulsoup4
     # via django-bootstrap4
-boto3==1.35.90
+boto3
     # via -r /requirements/requirements.in
 boto3-stubs==1.35.90
     # via -r /requirements/requirements.in
@@ -145,7 +145,7 @@ jmespath==0.10.0
     # via
     #   boto3
     #   botocore
-json-log-formatter==1.1
+json-log-formatter
     # via -r /requirements/requirements.in
 jsonfield==3.1.0
     # via django-notifications-hq
@@ -159,7 +159,7 @@ oauthlib==3.2.2
     # via requests-oauthlib
 phonenumbers==8.13.52
     # via -r /requirements/requirements.in
-psycopg2==2.9.10
+psycopg2
     # via -r /requirements/requirements.in
 pycparser==2.22
     # via cffi
