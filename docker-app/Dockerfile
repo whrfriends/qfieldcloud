@@ -60,9 +60,11 @@ RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /
 # copy the dependencies
 COPY --from=build /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
 
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+
 # install debug dependencies
 ARG DEBUG_BUILD
-RUN if [ "$DEBUG_BUILD" = "1" ]; then pip3 install debugpy ipython; fi
+RUN if [ "$DEBUG_BUILD" = "1" ]; then pip install debugpy ipython; fi
 
 # add app group
 RUN addgroup --system app && adduser --system app --ingroup app
