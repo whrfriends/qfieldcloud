@@ -13,8 +13,10 @@ ARG PIP_NO_CACHE_DIR=1
 
 RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
-# install psycopg2 requirements
-RUN apt-get update && apt-get install -y libpq-dev python3-dev gcc
+# Set up apt-get to use Aliyun mirror for faster package downloads
+RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org/debian-security|http://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y libpq-dev python3-dev gcc
 
 # install `pip-compile` (as part of `pip-tools`)
 RUN pip install pip-tools
@@ -44,13 +46,15 @@ ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
-# install dependencies
-RUN apt-get update && apt-get install -y \
-# GeoDjango as recommended at https://docs.djangoproject.com/en/4.1/ref/contrib/gis/install/geolibs/#installing-geospatial-libraries
+# Set up apt-get to use Aliyun mirror for faster package downloads
+RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org/debian-security|http://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y \
+    # GeoDjango as recommended at https://docs.djangoproject.com/en/4.1/ref/contrib/gis/install/geolibs/#installing-geospatial-libraries
     binutils libproj-dev gdal-bin \
-# needed for Django's `manage.py makemessages`
+    # needed for Django's `manage.py makemessages`
     gettext \
-# for development purposes only (optional dependency for `django-extensions`)
+    # for development purposes only (optional dependency for `django-extensions`)
     graphviz
 
 # copy the dependencies
