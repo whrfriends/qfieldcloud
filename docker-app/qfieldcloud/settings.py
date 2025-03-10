@@ -117,7 +117,6 @@ INSTALLED_APPS = [
     "constance",
     "constance.backends.database",
     "django_extensions",
-    "myweb",
 
 ]
 
@@ -139,6 +138,7 @@ MIDDLEWARE = [
     "qfieldcloud.core.middleware.timezone.TimezoneMiddleware",
     "qfieldcloud.core.middleware.test.TestMiddleware",
     "axes.middleware.AxesMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 CRON_CLASSES = [

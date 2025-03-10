@@ -17,6 +17,7 @@ RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /etc/apt/sources.list && \
     sed -i 's|http://security.debian.org/debian-security|http://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list && \
     apt-get update && apt-get install -y libpq-dev python3-dev gcc
+# install psycopg2 requirements
 
 # install `pip-compile` (as part of `pip-tools`)
 RUN pip install pip-tools
@@ -46,7 +47,6 @@ ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
-# Set up apt-get to use Aliyun mirror for faster package downloads
 RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /etc/apt/sources.list && \
     sed -i 's|http://security.debian.org/debian-security|http://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list && \
     apt-get update && apt-get install -y \
@@ -57,13 +57,17 @@ RUN sed -i 's|http://deb.debian.org/debian|http://mirrors.aliyun.com/debian|g' /
     # for development purposes only (optional dependency for `django-extensions`)
     graphviz
 
+# install dependencies
+# GeoDjango as recommended at https://docs.djangoproject.com/en/4.1/ref/contrib/gis/install/geolibs/#installing-geospatial-libraries
+# needed for Django's `manage.py makemessages`
+
 # copy the dependencies
 COPY --from=build /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
 
-RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
-
 # install debug dependencies
 ARG DEBUG_BUILD
+
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN if [ "$DEBUG_BUILD" = "1" ]; then pip install debugpy ipython; fi
 
 # add app group
@@ -106,6 +110,8 @@ USER app
 FROM base AS webserver_test
 ENV LOGGER_SOURCE=app
 COPY ./requirements/requirements_test.txt requirements/requirements_test.txt
+
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -r requirements/requirements_test.txt
 EXPOSE 8000
 
@@ -121,6 +127,8 @@ USER app
 FROM base AS worker_wrapper_runtime
 ENV LOGGER_SOURCE=worker_wrapper
 COPY ./requirements/requirements_worker_wrapper.txt requirements/requirements_worker_wrapper.txt
+
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -r requirements/requirements_worker_wrapper.txt
 
 COPY . .
